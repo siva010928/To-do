@@ -37,6 +37,10 @@ This will give you a cool UI to work with so you can interact with your API and 
 
 To test things out, click on the route that is currently available and then click “try it out” and then “execute.”
 
+## AUNTHENTICATION
+
+You can see additional Authorize green button in  http://127.0.0.1:8000/docs#  page with the  interactive APIs. you can't execute a APIs without proper AUNTHENTICATION you should authorize first with correct credential even-though you already logged in with correct credentials.
+
 ### main.py
 
 ```python
@@ -149,7 +153,40 @@ def deleteTask(id:int, session = Depends(get_session),credentials: HTTPBasicCred
     return 'Task was deleted'
 ```
 
+### database.py
 
-## AUNTHENTICATION
+```python
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-You can see additional Authorize green button in  http://127.0.0.1:8000/docs#  page with the  interactive APIs. you can't execute a APIs without proper AUNTHENTICATION you should authorize first with correct credential even-though you already logged in with correct credentials.
+#Create sqlite engine instance
+engine = create_engine("sqlite:///todo.db")
+
+#Create declaritive base meta instance
+Base = declarative_base()
+
+#Create session local class for session maker
+SessionLocal = sessionmaker(bind=engine, expire_on_commit=False)
+```
+
+### models.py
+
+```python
+from sqlalchemy import Column, Integer, String
+from database import Base
+class Task(Base):
+    __tablename__ = 'tasks'
+    id = Column(Integer, primary_key=True)
+    task = Column(String(256))
+```
+
+### schemas.py
+
+```python
+from pydantic import BaseModel
+
+class Task(BaseModel):
+    task: str
+    
+```
