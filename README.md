@@ -89,12 +89,6 @@ def verify_credential(credentials: HTTPBasicCredentials = Depends(security)):
 
 
 
-
-@app.get("/users/me")
-def read_current_user(username: str = Depends(verify_credential)):
-    return {"username": username}
-
-
 # this method return local database session that acts as current database
 def get_session():
     session=SessionLocal()
@@ -158,5 +152,4 @@ def deleteTask(id:int, session = Depends(get_session),credentials: HTTPBasicCred
 
 ## AUNTHENTICATION
 
-you will see additional Authorize green button in http://127.0.0.1:8000/docs# page with the  interactive APIs.
-you can't execute a APIs without proper AUNTHENTICATION you should authorize first with correct credential even-though you already logged in with correct credentials.
+You can see additional Authorize green button in  http://127.0.0.1:8000/docs#  page with the  interactive APIs. you can't execute a APIs without proper AUNTHENTICATION you should authorize first with correct credential even-though you already logged in with correct credentials.
