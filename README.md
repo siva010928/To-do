@@ -1,3 +1,45 @@
+
+# To-do 
+
+A Basic To-do list API that uses REST API,authentication and implementation of CRUD functionalities using FastAPI as framework and database as MySQL with secured authenticated RESTAPI end-points.
+
+
+
+
+## Appendix
+
+- database.py
+- models.py
+- schemas.py
+- main.py
+
+
+
+## Installation
+
+Install TO-DO with pip
+
+```bash
+  cd TO-DO
+  pip install requirements.txt
+  uvicorn main:app --reload
+```
+    
+## Usage
+Swagger UI
+Fast API provides an interactive API that’s brought to us by swagger UI. I’ll save myself from explaining swagger UI and instead will provide a link if you want to check it out, but trust me, it’s pretty cool.
+
+To see it in action, add /docs# to the end of the URL we set for our first route.
+
+http://127.0.0.1:8000/docs#
+
+This will give you a cool UI to work with so you can interact with your API and get more information than just some data. This will list out all your routes as you add them.
+
+To test things out, click on the route that is currently available and then click “try it out” and then “execute.”
+
+### main.py
+
+```python
 from fastapi import Depends, FastAPI,HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from database import SessionLocal
@@ -111,3 +153,10 @@ def deleteTask(id:int, session = Depends(get_session),credentials: HTTPBasicCred
     session.commit()
     session.close()
     return 'Task was deleted'
+```
+
+
+## AUNTHENTICATION
+
+you will see additional Authorize green button in http://127.0.0.1:8000/docs# page with the  interactive APIs.
+you can't execute a APIs without proper AUNTHENTICATION you should authorize first with correct credential even-though you already logged in with correct credentials.
